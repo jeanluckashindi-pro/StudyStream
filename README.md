@@ -1,69 +1,275 @@
-# React + TypeScript + Vite
+# OptiAcad - Système de Gestion Académique
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un système complet de gestion académique développé avec Next.js, Material-UI, et PrimeReact.
 
-Currently, two official plugins are available:
+## 🚀 Technologies Utilisées
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **UI Libraries**: Material-UI, PrimeReact, PrimeIcons
+- **State Management**: Redux Toolkit, React Query
+- **Cartographie**: Mapbox GL
+- **Internationalisation**: React-i18next
+- **Styling**: Tailwind CSS, CSS Modules
+- **Polices**: Google Fonts (Bubblegum Sans, Josefin Sans, Lobster, Playball, Roboto, Viga)
 
-## Expanding the ESLint configuration
+## 🎨 Thème et Design
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Couleurs
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Fond principal**: `#00070F` (très sombre)
+- **Cartes**: `#181F27` (gris sombre)
+- **Bleu sombre**: `#000C18`
+- **Gris sombre**: `#343A40`
+- **Gris clair**: `#F8F9FA`
+- **Texte**: `#ededed` (clair)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Polices
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Bubblegum Sans**: Titres ludiques
+- **Josefin Sans**: Texte principal (100-700, normal/italic)
+- **Lobster**: Éléments décoratifs
+- **Playball**: Signatures
+- **Roboto**: Interface utilisateur (100-900, normal/italic)
+- **Viga**: Titres secondaires
+
+## 📁 Structure du Projet
+
+```
+src/
+├── app/
+│   ├── (auth)/                    # Module d'authentification
+│   │   ├── layout.tsx            # Layout pour les pages d'auth
+│   │   ├── login/page.tsx        # Page de connexion
+│   │   └── register/page.tsx     # Page d'inscription
+│   │
+│   ├── dashboard/                 # Dashboard principal
+│   │   ├── layout.tsx            # Layout avec navigation
+│   │   ├── page.tsx              # Page d'accueil dashboard
+│   │   ├── students/page.tsx     # ModuleStudentManager
+│   │   ├── staff/page.tsx        # StaffManagement
+│   │   ├── attendance/page.tsx   # StaffQrAttendance
+│   │   ├── ratings/page.tsx      # TeacherRatingModule
+│   │   └── archives/page.tsx     # ArchiveModule
+│   │
+│   ├── globals.css               # Styles globaux
+│   ├── layout.tsx                # Layout racine
+│   └── page.tsx                  # Page d'accueil
+│
+├── lib/                          # Utilitaires et configurations
+└── components/                   # Composants réutilisables
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🏗️ Modules Principaux
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. **Auth Module** - Authentification
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
+- **Route**: `/login`, `/register`
+- **Fonctionnalités**: Connexion, inscription, gestion des sessions
+- **Technologies**: Material-UI, Formulaires
+
+### 2. **ModuleStudentManager** - Gestion des Étudiants
+
+- **Route**: `/dashboard/students`
+- **Fonctionnalités**:
+  - Liste des étudiants avec recherche
+  - Ajout/modification/suppression d'étudiants
+  - Suivi des présences
+  - Gestion des classes
+
+### 3. **StaffManagement** - Gestion du Personnel
+
+- **Route**: `/dashboard/staff`
+- **Fonctionnalités**:
+  - Gestion des enseignants et administrateurs
+  - Profils détaillés avec avatars
+  - Filtrage par département et rôle
+  - Statuts (Actif, Congé, Inactif)
+
+### 4. **StaffQrAttendance** - Présence QR
+
+- **Route**: `/dashboard/attendance`
+- **Fonctionnalités**:
+  - Génération de codes QR pour les cours
+  - Suivi des présences en temps réel
+  - Statistiques de présence
+  - Export des données
+
+### 5. **TeacherRatingModule** - Évaluation des Enseignants
+
+- **Route**: `/dashboard/ratings`
+- **Fonctionnalités**:
+  - Système d'évaluation par étoiles
+  - Tendances d'amélioration
+  - Statistiques globales
+  - Détails par enseignant
+
+### 6. **ArchiveModule** - Archives
+
+- **Route**: `/dashboard/archives`
+- **Fonctionnalités**:
+  - Stockage et organisation des documents
+  - Filtrage par type et catégorie
+  - Recherche avancée
+  - Export des archives
+
+## 🎯 Fonctionnalités Clés
+
+### Dashboard Principal
+
+- **Statistiques en temps réel**
+- **Navigation intuitive** avec sidebar
+- **Interface responsive** (mobile/desktop)
+- **Thème sombre** par défaut
+
+### Interface Utilisateur
+
+- **Material-UI** pour les composants principaux
+- **PrimeReact** pour les composants avancés
+- **Design system** cohérent
+- **Animations** et transitions fluides
+
+### Gestion d'État
+
+- **Redux Toolkit** pour l'état global
+- **React Query** pour la gestion des données
+- **Cache intelligent** et synchronisation
+
+## 🚀 Installation et Démarrage
+
+```bash
+# Installation des dépendances
+npm install
+
+# Démarrage en mode développement
+npm run dev
+
+# Build pour la production
+npm run build
+
+# Démarrage en production
+npm start
+```
+
+## 📦 Dépendances Principales
+
+```json
+{
+  "@mui/material": "^5.x",
+  "@emotion/react": "^11.x",
+  "@emotion/styled": "^11.x",
+  "@mui/icons-material": "^5.x",
+  "@reduxjs/toolkit": "^2.x",
+  "react-redux": "^9.x",
+  "@tanstack/react-query": "^5.x",
+  "primevue": "^3.x",
+  "primeicons": "^6.x",
+  "mapbox-gl": "^3.x",
+  "react-i18next": "^14.x",
+  "i18next": "^23.x"
+}
+```
+
+## 🌐 Internationalisation
+
+- **Français** (par défaut)
+- **Anglais** (support complet)
+- **Détection automatique** de la langue
+- **Traductions** pour tous les modules
+
+## 🗺️ Cartographie
+
+- **Mapbox GL** pour l'intégration cartographique
+- **Géolocalisation** des établissements
+- **Visualisation** des données spatiales
+
+## 🔧 Configuration
+
+### Variables d'Environnement
+
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
+NEXT_PUBLIC_API_URL=your_api_url
+```
+
+### Configuration Tailwind
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        card: "var(--card)",
+        "dark-blue": "var(--dark-blue)",
+        "dark-gray": "var(--dark-gray)",
+        "light-gray": "var(--light-gray)",
       },
-      // other options...
+      fontFamily: {
+        bubblegum: "var(--font-bubblegum-sans)",
+        josefin: "var(--font-josefin-sans)",
+        lobster: "var(--font-lobster)",
+        playball: "var(--font-playball)",
+        roboto: "var(--font-roboto)",
+        viga: "var(--font-viga)",
+      },
     },
   },
-])
+  plugins: [],
+};
 ```
+
+## 📱 Responsive Design
+
+- **Mobile-first** approach
+- **Breakpoints** optimisés
+- **Navigation** adaptative
+- **Composants** flexibles
+
+## 🔒 Sécurité
+
+- **Authentification** sécurisée
+- **Validation** des formulaires
+- **Protection** des routes
+- **Gestion** des permissions
+
+## 🚀 Déploiement
+
+### Vercel (Recommandé)
+
+```bash
+npm run build
+vercel --prod
+```
+
+### Autres Plateformes
+
+- **Netlify**
+- **AWS Amplify**
+- **Docker** support
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 📞 Support
+
+Pour toute question ou support :
+
+- **Email**: support@optiacad.com
+- **Documentation**: [docs.optiacad.com](https://docs.optiacad.com)
+- **Issues**: [GitHub Issues](https://github.com/optiacad/issues)
+
+---
+
+**OptiAcad** - Optimiser l'éducation, un module à la fois. 🎓
